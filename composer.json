@@ -1,0 +1,32 @@
+{
+    "name": "dutchcodingcompany/cached-valuestore",
+    "description": "Cached version of spatie/valuestore",
+    "keywords": [
+        "dcc",
+        "laravel"
+    ],
+    "require": {
+        "php" : ">=7.2",
+        "spatie/valuestore": "^1.0",
+        "illuminate/support": "^6.0|^7.0|^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DutchCodingCompany\\CachedValuestore\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DutchCodingCompany\\CachedValuestore\\ServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "homepage": "https://github.com/dutchcodingcompany",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
