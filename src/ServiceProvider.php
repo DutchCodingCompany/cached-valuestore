@@ -2,6 +2,7 @@
 
 namespace DutchCodingCompany\CachedValuestore;
 
+use Spatie\Valuestore\Valuestore;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
