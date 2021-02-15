@@ -3,10 +3,14 @@
 namespace DutchCodingCompany\CachedValuestore;
 
 use Spatie\Valuestore\Valuestore;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Events\Dispatcher;
 
 class CachedValuestore extends Valuestore
 {
     public static ?string $cachedFileName = null;
+
+    protected ?Dispatcher $dispatcher = null;
 
     protected ?array $cachedData = null;
 
@@ -57,5 +61,82 @@ class CachedValuestore extends Valuestore
     public static function fromValuestore(Valuestore $store, array $values = null): self
     {
         return static::make($store->fileName, $values);
+    }
+
+    /**
+     * Gets the dispatcher from the container
+     *
+     * @return \Illuminate\Contracts\Events\Dispatcher
+     */
+    protected function dispatcher(): Dispatcher
+    {
+        if (is_null($this->dispatcher)) {
+            $this->dispatcher = Container::getInstance()->make(Dispatcher::class);
+        }
+
+        return $this->dispatcher;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function put($name, $value = null)
+    {
+        // Get arguments to event
+        $oldValue = parent::get($name);
+        $newValue = $value;
+
+        // Execute method
+        $result = parent::put($name, $value);
+
+        // Trigger event
+        $this->dispatcher()->dispatch(new Events\PutIntoValuestore($name, $oldValue, $newValue));
+
+        // Return stuff
+        return $result;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function forget(string $key)
+    {
+        // Get arguments to event
+        $oldValue = parent::get($key);
+
+        // Execute method
+        $result = parent::forget($key);
+
+        // Trigger event
+        $this->dispatcher()->dispatch(new Events\ForgetFromValuestore($key, $oldValue));
+
+        // Return stuff
+        return $result;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function flush()
+    {
+        $result = parent::flush();
+
+        // Trigger event
+        $this->dispatcher()->dispatch(new Events\FlushValuestore());
+
+        return $result;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function flushStartingWith(string $startingWith = '')
+    {
+        $result = parent::flushStartingWith($startingWith);
+
+        // Trigger event
+        $this->dispatcher()->dispatch(new Events\FlushValuestore($startingWith));
+
+        return $result;
     }
 }

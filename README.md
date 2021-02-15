@@ -13,6 +13,13 @@ You can install the package via composer:
 composer require dutchcodingcompany/cached-valuestore
 ```
 
+## Events
+
+Three events are triggered:
+- `DutchCodingCompany\CachedValuestore\Events\PutIntoValuestore`, triggered by `put`, `prepend`, `push`, `offsetSet`, `increment` and `decrement`
+- `DutchCodingCompany\CachedValuestore\Events\ForgetFromValuestore`, triggered by `forget`
+- `DutchCodingCompany\CachedValuestore\Events\FlushValuestore`, triggered by `flush` and `flushStartingWith`
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

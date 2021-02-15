@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.3.0 - 2021-02-15
+- Add events on changes of the valuestore
+
 ## 0.2.0 - 2020-11-19
 
 ### Changed
