@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0 - 2022-02-15
+
+- Support for Laravel 9
+
 ## 0.3.0 - 2021-02-15
 - Add events on changes of the valuestore
 
