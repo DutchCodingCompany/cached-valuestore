@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0 - 2023-06-01
+
+- Support for Laravel 10
+
 ## 0.4.0 - 2022-02-15
 
 - Support for Laravel 9
