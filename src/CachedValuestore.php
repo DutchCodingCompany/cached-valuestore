@@ -32,7 +32,7 @@ class CachedValuestore extends Valuestore
     /**
      * {@inheritdoc}
      */
-    protected function setContent(array $values)
+    protected function setContent(array $values): static
     {
         $this->clearCache();
 
@@ -80,7 +80,7 @@ class CachedValuestore extends Valuestore
     /**
      * {@inheritdoc}
      */
-    public function put($name, $value = null)
+    public function put(array|string $name, mixed $value = null): static
     {
         // Get arguments to event
         $oldValue = parent::get($name);
@@ -99,7 +99,7 @@ class CachedValuestore extends Valuestore
     /**
      * {@inheritdoc}
      */
-    public function forget(string $key)
+    public function forget(string $key): static
     {
         // Get arguments to event
         $oldValue = parent::get($key);
@@ -117,7 +117,7 @@ class CachedValuestore extends Valuestore
     /**
      * {@inheritdoc}
      */
-    public function flush()
+    public function flush(): static
     {
         $result = parent::flush();
 
@@ -130,7 +130,7 @@ class CachedValuestore extends Valuestore
     /**
      * {@inheritdoc}
      */
-    public function flushStartingWith(string $startingWith = '')
+    public function flushStartingWith(string $startingWith = ''): static
     {
         $result = parent::flushStartingWith($startingWith);
 
